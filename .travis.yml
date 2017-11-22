@@ -12,7 +12,7 @@ matrix:
             - libmpich-dev
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-         - MPI_version="mpich" 
+         - build_label="gcc-4.9 mpich" 
 
     - os: linux
       addons:
@@ -24,7 +24,33 @@ matrix:
             - libopenmpi-dev
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-         - MPI_version="openmpi" 
+         - build_label="gcc-4.9 openmpi" 
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+            - libmpich-dev
+            - libhdf5-mpich-dev
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - build_label="gcc-4.9 mpich hdf5"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+            - libopenmpi-dev
+            - libhdf5-openmpi-dev
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - build_label="gcc-4.9 openmpi hdf5"
 
     - os: linux
       addons:
@@ -36,7 +62,7 @@ matrix:
             - libmpich-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - MPI_version="mpich" 
+        - build_label="gcc-7 mpich"
 
     - os: linux
       addons:
@@ -48,7 +74,7 @@ matrix:
             - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - MPI_version="openmpi" 
+        - build_label="gcc-7 openmpi"
 
     - os: linux
       addons:
@@ -60,7 +86,7 @@ matrix:
             - libmpich-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-        - MPI_version="mpich" 
+        - build_label="clang-5.0 mpich"
 
     - os: linux
       addons:
@@ -72,11 +98,38 @@ matrix:
             - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-        - MPI_version="openmpi" 
+        - build_label="clang-5.0 openmpi"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+            - libmpich-dev
+            - libhdf5-mpich-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - build_label="clang-5.0 mpich hdf5"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+            - libopenmpi-dev
+            - libhdf5-openmpi-dev
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - build_label="clang-5.0 openmpi hdf5"
 
 before_install:
     - test -n $CC && unset CC
     - eval "${MATRIX_EVAL}"
+    - mpicc -v
 
 script:
     - ./bootstrap && ./configure && make && make check
