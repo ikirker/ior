@@ -1,3 +1,5 @@
+language: c
+
 matrix:
   include:
     - os: linux
@@ -10,6 +12,7 @@ matrix:
             - libmpich-dev
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - MPI_version="mpich" 
 
     - os: linux
       addons:
@@ -21,6 +24,7 @@ matrix:
             - libopenmpi-dev
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - MPI_version="openmpi" 
 
     - os: linux
       addons:
@@ -32,6 +36,7 @@ matrix:
             - libmpich-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MPI_version="mpich" 
 
     - os: linux
       addons:
@@ -43,6 +48,7 @@ matrix:
             - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MPI_version="openmpi" 
 
     - os: linux
       addons:
@@ -54,6 +60,7 @@ matrix:
             - libmpich-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MPI_version="mpich" 
 
     - os: linux
       addons:
@@ -65,6 +72,7 @@ matrix:
             - libopenmpi-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+        - MPI_version="openmpi" 
 
 before_install:
     - test -n $CC && unset CC
