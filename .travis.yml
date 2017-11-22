@@ -34,7 +34,7 @@ matrix:
           packages:
             - g++-4.9
             - libmpich-dev
-            - libhdf5-mpich-dev
+            - libhdf5-mpich2-dev
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
          - build_label="gcc-4.9 mpich hdf5"
@@ -108,7 +108,7 @@ matrix:
           packages:
             - clang-5.0
             - libmpich-dev
-            - libhdf5-mpich-dev
+            - libhdf5-mpich2-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
         - build_label="clang-5.0 mpich hdf5"
